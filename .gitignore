@@ -4,7 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-.env
+src/main/resources/.env
 
 ### STS ###
 HELP.md
@@ -27,7 +27,7 @@ application.properties
 application.yml
 application-dev.properties
 application-prod.properties
-.env
+src/main/resources/.env
 
 # Maven Wrapper
 .mvn/
