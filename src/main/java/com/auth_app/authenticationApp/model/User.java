@@ -2,15 +2,15 @@ package com.auth_app.authenticationApp.model;
 
 public class User {
     public String name;
+    public Integer age;
     private String email;
     private String password;
-    public Integer idade;
 
-    public User(String name, String email, String password, Integer idade) {
+    public User(String name, Integer age, String email, String password) {
         this.name = name;
+        this.age = age;
         setEmail(email);
         setPassword(password);
-        this.idade = idade;
     }
 
     // Setter email
