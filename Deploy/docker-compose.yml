@@ -1,6 +1,4 @@
 #file: noinspection SpellCheckingInspection
-version: '3.8'
-
 services:
   db:
     image: postgres:17
@@ -10,3 +8,5 @@ services:
       - ../src/main/resources/.env
     ports:
       - "5432:5432"
+    volumes:
+      - ./scriptTables.sql:/docker-entrypoint-initdb.d/tables.sql
