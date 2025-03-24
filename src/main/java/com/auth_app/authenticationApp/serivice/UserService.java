@@ -30,25 +30,25 @@ public class UserService {
             }
         }
         if (!missingFields.isEmpty()) {
-            throw new ValidationException("Missing required fields: " + missingFields, HttpStatus.BAD_REQUEST);
+            throw new ValidationException("Missing required fields: " + missingFields, HttpStatus.BAD_REQUEST); // HTTP 400
         }
 
 
         // Lógica para verificação de idade como Integer
         try {
-            Integer age = Integer.parseInt(data.get("age"));
+            int age = Integer.parseInt(data.get("age"));
             if (age <= 0) {
-                throw new ValidationException("Age must be greater than zero", HttpStatus.UNPROCESSABLE_ENTITY);
+                throw new ValidationException("Age must be greater than zero", HttpStatus.UNPROCESSABLE_ENTITY); // HTTP 422
             }
         } catch (NumberFormatException e) {
-            throw new ValidationException("Age must be a valid number", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new ValidationException("Age must be a valid number", HttpStatus.UNPROCESSABLE_ENTITY); // HTTP 422
         }
 
         User user = new User(data.get("name"), Integer.parseInt(data.get("age")), data.get("email"), data.get("password"));
         try {
             userRepository.save(user);
         } catch (Exception e) {
-            throw new ValidationException("Erro interno tente novamente", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new ValidationException("Erro interno tente novamente", HttpStatus.INTERNAL_SERVER_ERROR); // HTTP 500
         }
 
         return user;

@@ -2,11 +2,11 @@ package com.auth_app.authenticationApp.model;
 
 public class User {
     public String name;
-    public Integer age;
+    public int age;
     private String email;
     private String password;
 
-    public User(String name, Integer age, String email, String password) {
+    public User(String name, int age, String email, String password) {
         this.name = name;
         this.age = age;
         setEmail(email);

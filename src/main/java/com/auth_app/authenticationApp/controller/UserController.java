@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.CREATED) // HTTP 201
     public User UserPost(@RequestBody Map<String, String> data) {
         return userService.userDataCreate(data);
     }
