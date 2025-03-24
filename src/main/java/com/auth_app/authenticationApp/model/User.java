@@ -1,32 +1,50 @@
 package com.auth_app.authenticationApp.model;
 
 public class User {
-    public String name;
-    public int age;
+    private String name;
+    private int age;
     private String email;
     private String password;
 
     public User(String name, int age, String email, String password) {
-        this.name = name;
-        this.age = age;
+        setName(name);
+        setAge(age);
         setEmail(email);
         setPassword(password);
     }
 
-    // Setter email
+    // Construtor sem a senha para GET user
+    public User(String name, int age, String email) {
+        setName(name);
+        setAge(age);
+        setEmail(email);
+    }
+
+    // Getter e Setter
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return this.name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+    public int getAge() {
+        return age;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
-    // Getter email
     public String getEmail() {
         return this.email;
     }
 
-    // Setter Password
     public void setPassword(String password) {
         this.password = password;
     }
-    // Getter Password
     public String getPassword() {
         return this.password;
     }
