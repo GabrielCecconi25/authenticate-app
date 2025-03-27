@@ -35,18 +35,18 @@ public class UserRepository {
         return jdbcTemplate.queryForObject(sql, this::mapRowToUser, email);
     }
 
+    // GET All
+    public List<User> findAll () {
+        String sql = "SELECT name, age, email FROM users";
+        return jdbcTemplate.query(sql, this::mapRowToUser);
+    }
+
     // GET Email
     public boolean findEmail(String email) {
         String sql = "SELECT COUNT(1) FROM users WHERE email = ?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, email);
         System.out.println(count);
         return count == null || count > 0;
-    }
-
-    // GET All
-    public List<User> findAll () {
-        String sql = "SELECT name, age, email FROM users";
-        return jdbcTemplate.query(sql, this::mapRowToUser);
     }
 
     // POST
