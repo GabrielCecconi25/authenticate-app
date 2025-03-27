@@ -25,13 +25,13 @@ public class User {
         setEmail(email);
     }
 
-    // Contructor senha
+    // Constructor senha
     public User(String email, String password) {
         setEmail(email);
         setPassword(password);
     }
 
-    // Construtor sem a senha
+    // Constructor sem a senha
     public User(String name, int age, String email) {
         setName(name);
         setAge(age);
