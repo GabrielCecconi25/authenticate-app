@@ -13,6 +13,7 @@ import com.auth_app.authenticationApp.model.User;
 import com.auth_app.authenticationApp.service.UserService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,6 +22,18 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK) // HTTP 200
+    public List<User> UserGetAll() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/{email}")
+    @ResponseStatus(HttpStatus.OK) // HTTP 200
+    public User UserGetEmail(@PathVariable("email") String email) {
+        return userService.getUser(email);
+    }
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED) // HTTP 201
