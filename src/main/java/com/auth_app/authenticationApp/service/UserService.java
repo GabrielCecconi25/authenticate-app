@@ -1,14 +1,11 @@
-package com.auth_app.authenticationApp.serivice;
+package com.auth_app.authenticationApp.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 
 import com.auth_app.authenticationApp.model.User;
 import com.auth_app.authenticationApp.exception.ValidationException;
 import com.auth_app.authenticationApp.repository.UserRepository;
-
-import java.util.*;
 
 @Service
 public class UserService {
@@ -21,39 +18,15 @@ public class UserService {
 
     public User userDataCreate(User user) {
 
-        System.out.println(user);
-//        List<String> requiredFields = List.of("name", "age", "email", "password");
-//        List<String> missingFields = new ArrayList<String>();
-//
-//        // Lógica para verificação de campos
-//        for (String field : requiredFields) {
-//            if (!data.containsKey(field) || data.get(field) == null || data.get(field).isEmpty()) {
-//                missingFields.add(field);
-//            }
-//        }
-//        if (!missingFields.isEmpty()) {
-//            throw new ValidationException("Missing required fields: " + missingFields, HttpStatus.BAD_REQUEST); // HTTP 400
-//        }
-
-
-
-        // Lógica para verificação de idade como Integer
-//        try {
-//            int age = Integer.parseInt(data.get("age"));
-////            if (age <= 0) {
-////                throw new ValidationException("Age must be greater than zero", HttpStatus.UNPROCESSABLE_ENTITY); // HTTP 422
-////            }
-//        } catch (NumberFormatException e) {
-//            throw new ValidationException("Age must be a valid number", HttpStatus.UNPROCESSABLE_ENTITY); // HTTP 422
-//        }
-
-//        User user = new User(data.get("name"), Integer.parseInt(data.get("age")), data.get("email"), data.get("password"));
-
+        // Verifica duplicação de Email
+        if (userRepository.findEmail(user.getEmail())) {
+            throw new ValidationException("Email alredy in use", HttpStatus.CONFLICT); // HTTP 409
+        }
 
         try {
             userRepository.save(user);
         } catch (Exception e) {
-            throw new ValidationException("Erro interno tente novamente", HttpStatus.INTERNAL_SERVER_ERROR); // HTTP 500
+            throw new ValidationException("Internal Error try again later", HttpStatus.INTERNAL_SERVER_ERROR); // HTTP 500
         }
 
         return user;
