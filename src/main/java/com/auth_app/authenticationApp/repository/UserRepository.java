@@ -47,8 +47,8 @@ public class UserRepository {
         jdbcTemplate.update(sql, user.getName(), user.getAge(), user.getEmail(), user.getPassword());
     }
 
-    // PATCH
-    public void update(User user) {
+    // PATCH User name e age
+    public void updateNameAge(User user) {
         // Construir o Update de forma dinamica
         StringBuilder sql = new StringBuilder("UPDATE users SET ");
         List<Object> params = new ArrayList<>();
@@ -69,4 +69,18 @@ public class UserRepository {
 
         jdbcTemplate.update(sql.toString(), params.toArray());
     }
+
+    // PATCH User email
+    public void updateEmail(User user) {
+        String sql = "UPDATE users SET email = ? WHERE email = ?";
+
+        jdbcTemplate.update(sql, user.getEmail(), user.getEmail());
+    }
+    // PATCH User passwd
+    public void updatePasswd(User user) {
+        String sql = "UPDATE users SET password = ? WHERE email = ?";
+
+        jdbcTemplate.update(sql, user.getPassword(), user.getEmail());
+    }
+
 }
