@@ -7,6 +7,8 @@ import com.auth_app.authenticationApp.model.User;
 import com.auth_app.authenticationApp.exception.ValidationException;
 import com.auth_app.authenticationApp.repository.UserRepository;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -14,6 +16,15 @@ public class UserService {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public List<User> getAllUsers () {
+        return userRepository.findAll();
+    }
+
+    public User getUser (String email) {
+        User user = userRepository.findOne(email);
+        return user;
     }
 
     public User userDataCreate(User user) {
