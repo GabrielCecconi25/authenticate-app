@@ -1,6 +1,7 @@
 package com.auth_app.authenticationApp.controller;
 
 import com.auth_app.authenticationApp.exception.ValidationException;
+import com.auth_app.authenticationApp.model.UserDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import com.auth_app.authenticationApp.service.UserService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -25,14 +27,19 @@ public class UserController {
 
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK) // HTTP 200
-    public List<User> UserGetAll() {
-        return userService.getAllUsers();
+    public List<UserDTO> UserGetAll() {
+        List<User> users = userService.getAllUsers();
+        List<UserDTO> userDTOs = users.stream()
+                .map(user -> new UserDTO(user.getName(), user.getAge(), user.getEmail()))
+                .collect(Collectors.toList());
+        return userDTOs;
     }
 
     @GetMapping("/{email}")
     @ResponseStatus(HttpStatus.OK) // HTTP 200
-    public User UserGetEmail(@PathVariable("email") String email) {
-        return userService.getUser(email);
+    public UserDTO UserGetEmail(@PathVariable("email") String email) {
+        User user = userService.getUser(email);
+        return new UserDTO(user.getName(), user.getAge(), user.getEmail());
     }
 
     @PostMapping("")
