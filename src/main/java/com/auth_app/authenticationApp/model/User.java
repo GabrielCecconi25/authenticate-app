@@ -14,14 +14,19 @@ public class User {
     private String email;
 
     @Size(min = 8, message = "Password must be at least 8 characters")
+    @NotNull(message = "Password cannot be null")
     private String password;
 
     // Constructor para desserialização
     public User() {}
 
-    public User(String name, int age, String email, String password) {
-        setName(name);
-        setAge(age);
+    // Constructor email
+    public User(String email) {
+        setEmail(email);
+    }
+
+    // Contructor senha
+    public User(String email, String password) {
         setEmail(email);
         setPassword(password);
     }
@@ -33,15 +38,12 @@ public class User {
         setEmail(email);
     }
 
-    // Contructor senha
-    public User(String email, String password) {
+    // Constructor padrão
+    public User(String name, int age, String email, String password) {
+        setName(name);
+        setAge(age);
         setEmail(email);
         setPassword(password);
-    }
-
-    // Constructor email
-    public User(String email) {
-        setEmail(email);
     }
 
     // Getter e Setter
