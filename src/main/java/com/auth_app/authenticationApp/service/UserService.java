@@ -23,8 +23,7 @@ public class UserService {
     }
 
     public User getUser (String email) {
-        User user = userRepository.findOne(email);
-        return user;
+        return userRepository.findOne(email);
     }
 
     public User userDataCreate(User user) {
