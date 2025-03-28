@@ -79,10 +79,10 @@ public class UserRepository {
     }
 
     // PATCH User email
-    public void updateEmail(User user) {
+    public void updateEmail(User user, String email) {
         String sql = "UPDATE users SET email = ? WHERE email = ?";
 
-        jdbcTemplate.update(sql, user.getEmail(), user.getEmail());
+        jdbcTemplate.update(sql, user.getEmail(), email);
     }
 
     // PATCH User passwd
