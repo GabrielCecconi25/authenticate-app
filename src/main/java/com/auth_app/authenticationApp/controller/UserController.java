@@ -48,6 +48,30 @@ public class UserController {
         return userService.userDataCreate(data);
     }
 
+    // Updates
+    @PatchMapping("/{email}")
+    @ResponseStatus(HttpStatus.OK) // HTTP 200
+    public UserDTO UserPatchNameAge(@Valid @RequestBody Map<String, String> data, @PathVariable("email") String email) {
+        User user = userService.updateUserNameAge(data, email);
+
+        return new UserDTO(user.getName(), user.getAge(), user.getEmail());
+    }
+
+    @PatchMapping("/update/email/{email}")
+    @ResponseStatus(HttpStatus.OK) // HTTP 200
+    public Map<String, String> UserPatchEmail(@Valid @RequestBody Map<String, String> data, @PathVariable("email") String email) {
+        return userService.updateEmail(data, email);
+    }
+
+    @PatchMapping("/update/passwd/{email}")
+    @ResponseStatus(HttpStatus.OK) // HTTP 200
+    public Map<String, String> UserPatchPasswd(@Valid @RequestBody Map<String, String> data, @PathVariable("email") String email) {
+        return userService.updatePasswd(data, email);
+    }
+
+
+
+
     // Exception Validation
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<Map<String, String>> handleValidationException(ValidationException ex) {

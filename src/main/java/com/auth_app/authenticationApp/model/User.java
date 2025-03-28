@@ -10,11 +10,10 @@ public class User {
     private int age;
 
     @Email(message = "Email format Invalid")
-    @NotNull(message = "Email cannot be null")
+//    @NotNull(message = "Email cannot be null")
     private String email;
 
     @Size(min = 8, message = "Password must be at least 8 characters")
-    @NotNull(message = "Password cannot be null")
     private String password;
 
     // Constructor para desserialização

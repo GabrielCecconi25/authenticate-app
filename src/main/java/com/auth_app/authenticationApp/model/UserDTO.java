@@ -11,6 +11,9 @@ public class UserDTO {
         setEmail(email);
     }
 
+    public UserDTO(String email) {
+        setEmail(email);
+    }
 
 
     public String getName() {
