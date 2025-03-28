@@ -84,11 +84,18 @@ public class UserRepository {
 
         jdbcTemplate.update(sql, user.getEmail(), user.getEmail());
     }
+
     // PATCH User passwd
     public void updatePasswd(User user) {
         String sql = "UPDATE users SET password = ? WHERE email = ?";
 
         jdbcTemplate.update(sql, user.getPassword(), user.getEmail());
+    }
+
+    // DELETE User
+    public void delete(String email) {
+        String sql = "DELETE users WHERE email = ?";
+         jdbcTemplate.update(sql, email);
     }
 
 }
