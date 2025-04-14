@@ -46,13 +46,18 @@ public class UserRepository {
         String sql = "SELECT COUNT(1) FROM users WHERE email = ?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, email);
         System.out.println(count);
-        return count == null || count > 0;
+        return count != null || count > 0;
     }
 
     // POST
     public void save(User user) {
         String sql = "INSERT INTO users (name, age, email, password) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, user.getName(), user.getAge(), user.getEmail(), user.getPassword());
+    }
+
+    public void update(User user, String email) {
+        String sql = "UPDATE users SET name = ?, age = ?, email = ?, password = ? WHERE email = ?";
+        jdbcTemplate.update(sql, user.getName(), user.getAge(), user.getEmail(), user.getPassword(), email);
     }
 
     // PATCH User name e age

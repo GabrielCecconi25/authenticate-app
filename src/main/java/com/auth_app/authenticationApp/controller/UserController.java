@@ -3,6 +3,7 @@ package com.auth_app.authenticationApp.controller;
 import com.auth_app.authenticationApp.exception.ValidationException;
 import com.auth_app.authenticationApp.model.UserDTO;
 import jakarta.validation.Valid;
+import org.hibernate.validator.constraints.ParameterScriptAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +48,19 @@ public class UserController {
     public User UserPost(@Valid @RequestBody User data) {
         return userService.userDataCreate(data);
     }
+
+
+    @PutMapping("/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Map<String, String>> UserPut(@Valid @RequestBody User data, @PathVariable("email") String email) {
+        userService.UpdateUser(data, email);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("mensagem", "User updated successfully");
+
+        return ResponseEntity.ok(response);
+    }
+
 
     // Updates
     @PatchMapping("/{email}")

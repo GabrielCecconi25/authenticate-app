@@ -1,6 +1,7 @@
 package com.auth_app.authenticationApp.service;
 
 import jakarta.validation.Valid;
+import org.springframework.security.config.annotation.web.headers.HttpPublicKeyPinningDsl;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 
@@ -38,10 +39,26 @@ public class UserService {
         try {
             userRepository.save(user);
         } catch (Exception e) {
-            throw new ValidationException("Internal Error try again later", HttpStatus.INTERNAL_SERVER_ERROR); // HTTP 500
+            throw new ValidationException("Internal Error", HttpStatus.INTERNAL_SERVER_ERROR); // HTTP 500
         }
 
         return user;
+    }
+
+    public void UpdateUser(User data, String email) {
+        if (!userRepository.findEmail(email)) {
+            throw new ValidationException("Email is not valid", HttpStatus.NOT_FOUND); // 404
+        }
+
+        if (userRepository.findEmail(data.getEmail())) {
+            throw new ValidationException("Email already in use", HttpStatus.CONFLICT); // HTTP 409
+        }
+
+        try {
+            userRepository.update(data, email);
+        } catch (Exception e) {
+            throw new ValidationException("Internal Error", HttpStatus.INTERNAL_SERVER_ERROR); // HTTP 500
+        }
     }
 
     public User updateUserNameAge(Map<String, String> data, String email) {
@@ -69,7 +86,7 @@ public class UserService {
         }
 
         if (userRepository.findEmail(user.getEmail())) {
-            throw new ValidationException("Email alredy in use", HttpStatus.CONFLICT); // HTTP 409
+            throw new ValidationException("Email already in use", HttpStatus.CONFLICT); // HTTP 409
         }
 
         try {
@@ -82,7 +99,6 @@ public class UserService {
     }
 
     public Map <String, String> updatePasswd(Map<String, String> data, String email) {
-
         @Valid User user = new User(email, data.get("password"));
 
         if (!userRepository.findEmail(user.getEmail())) {
